@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>var vs let vs const</title>
+
+    <script src="variables.js" defer></script>
+  </head>
+
+  <body style="font-family: cursive; padding: 20px">
+    <h1>var vs let vs const</h1>
+
+    <h2>📌 What are Variables?</h2>
+    <p>
+      Variables are containers used to store data values in JavaScript.
+    </p>
+
+    <h2>📌 Types of Variable Declarations</h2>
+    <ul>
+      <li><b>var</b> → old way (before ES6)</li>
+      <li><b>let</b> → modern, block-scoped</li>
+      <li><b>const</b> → constant, cannot be reassigned</li>
+    </ul>
+
+    <h2>📊 Comparison Table</h2>
+    <table border="1" cellpadding="10">
+      <tr>
+        <th>Feature</th>
+        <th>var</th>
+        <th>let</th>
+        <th>const</th>
+      </tr>
+      <tr>
+        <td>Scope</td>
+        <td>Function</td>
+        <td>Block</td>
+        <td>Block</td>
+      </tr>
+      <tr>
+        <td>Hoisting</td>
+        <td>Yes (undefined)</td>
+        <td>Yes (TDZ)</td>
+        <td>Yes (TDZ)</td>
+      </tr>
+      <tr>
+        <td>Reassignment</td>
+        <td>Allowed</td>
+        <td>Allowed</td>
+        <td>❌ Not allowed</td>
+      </tr>
+      <tr>
+        <td>Redeclaration</td>
+        <td>Allowed</td>
+        <td>❌ Not allowed</td>
+        <td>❌ Not allowed</td>
+      </tr>
+    </table>
+
+    <h2>📌 Key Differences</h2>
+
+    <h3>1. Scope</h3>
+    <p>
+      <b>var</b> is function-scoped, while <b>let</b> and <b>const</b> are block-scoped.
+    </p>
+
+    <h3>2. Hoisting</h3>
+    <p>
+      <b>var</b> is initialized as undefined, but <b>let</b> and <b>const</b> are in Temporal Dead Zone (TDZ).
+    </p>
+
+    <h3>3. Reassignment</h3>
+    <p>
+      <b>const</b> cannot be reassigned after declaration.
+    </p>
+
+    <h2>📌 Best Practice</h2>
+    <ul>
+      <li>Use <b>const</b> by default</li>
+      <li>Use <b>let</b> if value needs to change</li>
+      <li>Avoid <b>var</b> in modern JavaScript</li>
+    </ul>
+
+    <h2>📌 How to See Output?</h2>
+    <p>👉 Inspect → Console</p>
+  </body>
+</html>
