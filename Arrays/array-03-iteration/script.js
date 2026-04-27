@@ -1,167 +1,167 @@
-console.log("===== ARRAYS - PART 3: ITERATION METHODS =====");
-console.log("");
+// console.log("===== ARRAYS - PART 3: ITERATION METHODS =====");
+// console.log("");
 
-/**
- * SECTION 1: TRADITIONAL LOOPS
- */
-console.log("📌 SECTION 1: TRADITIONAL LOOPS");
-console.log("━".repeat(50));
+// /**
+//  * SECTION 1: TRADITIONAL LOOPS
+//  */
+// console.log("📌 SECTION 1: TRADITIONAL LOOPS");
+// console.log("━".repeat(50));
 
-const fruits = ["apple", "banana", "orange", "mango", "grape"];
-console.log("Array:", fruits);
+// const fruits = ["apple", "banana", "orange", "mango", "grape"];
+// console.log("Array:", fruits);
 
-// 1. for loop - most control
-console.log("\n1️⃣ for loop:");
-for (let i = 0; i < fruits.length; i++) {
-    console.log(`  Index ${i}: ${fruits[i]}`);
-}
+// // 1. for loop - most control
+// console.log("\n1️⃣ for loop:");
+// for (let i = 0; i < fruits.length; i++) {
+//     console.log(`  Index ${i}: ${fruits[i]}`);
+// }
 
-// 2. for...of loop (ES6) - values only
-console.log("\n2️⃣ for...of loop:");
-for (const fruit of fruits) {
-    console.log(`  ${fruit}`);
-}
+// // 2. for...of loop (ES6) - values only
+// console.log("\n2️⃣ for...of loop:");
+// for (const fruit of fruits) {
+//     console.log(`  ${fruit}`);
+// }
 
-// 3. for...in loop (not recommended for arrays)
-console.log("\n3️⃣ for...in loop (NOT recommended for arrays):");
-for (const index in fruits) {
-    console.log(`  Index ${index}: ${fruits[index]}`);
-}
+// // 3. for...in loop (not recommended for arrays)
+// console.log("\n3️⃣ for...in loop (NOT recommended for arrays):");
+// for (const index in fruits) {
+//     console.log(`  Index ${index}: ${fruits[index]}`);
+// }
 
-// 4. while loop
-console.log("\n4️⃣ while loop:");
-let i = 0;
-while (i < fruits.length) {
-    console.log(`  ${fruits[i]}`);
-    i++;
-}
+// // 4. while loop
+// console.log("\n4️⃣ while loop:");
+// let i = 0;
+// while (i < fruits.length) {
+//     console.log(`  ${fruits[i]}`);
+//     i++;
+// }
 
-// 5. do...while loop
-console.log("\n5️⃣ do...while loop:");
-let j = 0;
-do {
-    console.log(`  ${fruits[j]}`);
-    j++;
-} while (j < fruits.length);
+// // 5. do...while loop
+// console.log("\n5️⃣ do...while loop:");
+// let j = 0;
+// do {
+//     console.log(`  ${fruits[j]}`);
+//     j++;
+// } while (j < fruits.length);
 
-/**
- * SECTION 2: forEach() METHOD
- */
-console.log("\n📌 SECTION 2: forEach() Method");
-console.log("━".repeat(50));
+// /**
+//  * SECTION 2: forEach() METHOD
+//  */
+// console.log("\n📌 SECTION 2: forEach() Method");
+// console.log("━".repeat(50));
 
-const numbers = [1, 2, 3, 4, 5];
-console.log("Array:", numbers);
+// const numbers = [1, 2, 3, 4, 5];
+// console.log("Array:", numbers);
 
-// Basic forEach
-console.log("\n1️⃣ Basic forEach:");
-numbers.forEach(function(num) {
-    console.log(`  Number: ${num}`);
-});
+// // Basic forEach
+// console.log("\n1️⃣ Basic forEach:");
+// numbers.forEach(function(num) {
+//     console.log(`  Number: ${num}`);
+// });
 
-// forEach with index
-console.log("\n2️⃣ forEach with index:");
-numbers.forEach((num, index) => {
-    console.log(`  Index ${index}: ${num}`);
-});
+// // forEach with index
+// console.log("\n2️⃣ forEach with index:");
+// numbers.forEach((num, index) => {
+//     console.log(`  Index ${index}: ${num}`);
+// });
 
-// forEach with array reference
-console.log("\n3️⃣ forEach with full parameters:");
-numbers.forEach((num, index, array) => {
-    console.log(`  ${num} is at index ${index} of [${array}]`);
-});
+// // forEach with array reference
+// console.log("\n3️⃣ forEach with full parameters:");
+// numbers.forEach((num, index, array) => {
+//     console.log(`  ${num} is at index ${index} of [${array}]`);
+// });
 
-// Practical example - calculate sum
-console.log("\n✅ Practical - Calculate sum:");
-let sum = 0;
-numbers.forEach(num => sum += num);
-console.log(`  Sum of [${numbers}] = ${sum}`);
+// // Practical example - calculate sum
+// console.log("\n✅ Practical - Calculate sum:");
+// let sum = 0;
+// numbers.forEach(num => sum += num); // sum = sum + num
+// console.log(`  Sum of [${numbers}] = ${sum}`);
 
-// forEach vs for loop performance
-console.log("\n⚠️ Note: forEach is slower than for loop but more readable");
+// // forEach vs for loop performance
+// console.log("\n⚠️ Note: forEach is slower than for loop but more readable");
 
-/**
- * SECTION 3: map() - TRANSFORM ARRAYS
- */
-console.log("\n📌 SECTION 3: map() - Transform Arrays");
-console.log("━".repeat(50));
+// /**
+//  * SECTION 3: map() - TRANSFORM ARRAYS
+//  */
+// console.log("\n📌 SECTION 3: map() - Transform Arrays");
+// console.log("━".repeat(50));
 
-const prices = [10, 20, 30, 40, 50];
-console.log("Original prices:", prices);
+// const prices = [10, 20, 30, 40, 50];
+// console.log("Original prices:", prices);
 
-// Double each price
-const doubled = prices.map(price => price * 2);
-console.log("\n1️⃣ Double each price:", doubled);
+// // Double each price
+// const doubled = prices.map(price => price * 2);
+// console.log("\n1️⃣ Double each price:", doubled);
 
-// Add tax
-const withTax = prices.map(price => price * 1.1);
-console.log("2️⃣ Add 10% tax:", withTax);
+// // Add tax
+// const withTax = prices.map(price => price * 1.1);
+// console.log("2️⃣ Add 10% tax:", withTax);
 
-// Format as currency
-const formatted = prices.map(price => `$${price}.00`);
-console.log("3️⃣ Format as currency:", formatted);
+// // Format as currency
+// const formatted = prices.map(price => `$${price}.00`);
+// console.log("3️⃣ Format as currency:", formatted);
 
-// Transform objects
-const products = [
-    { name: "Laptop", price: 1000 },
-    { name: "Mouse", price: 20 },
-    { name: "Keyboard", price: 50 }
-];
-const productNames = products.map(product => product.name);
-console.log("4️⃣ Extract names:", productNames);
+// // Transform objects
+// const products = [
+//     { name: "Laptop", price: 1000 },
+//     { name: "Mouse", price: 20 },
+//     { name: "Keyboard", price: 50 }
+// ];
+// const productNames = products.map(product => product.name);
+// console.log("4️⃣ Extract names:", productNames);
 
-const discounted = products.map(product => ({
-    name: product.name,
-    price: product.price * 0.9,
-    discount: "10% off"
-}));
-console.log("5️⃣ Add discount:", discounted);
+// const discounted = products.map(product => ({
+//     name: product.name,
+//     price: product.price * 0.9,
+//     discount: "10% off"
+// }));
+// console.log("5️⃣ Add discount:", discounted);
 
-// Chaining map
-const result = [1, 2, 3, 4]
-    .map(x => x * 2)
-    .map(x => x + 1);
-console.log("6️⃣ Chained map:", result);
+// // Chaining map
+// const result = [1, 2, 3, 4]
+//     .map(x => x * 2)
+//     .map(x => x + 1);
+// console.log("6️⃣ Chained map:", result);
 
 /**
  * SECTION 4: filter() - FILTER ARRAYS
  */
-console.log("\n📌 SECTION 4: filter() - Filter Arrays");
-console.log("━".repeat(50));
+// console.log("\n📌 SECTION 4: filter() - Filter Arrays");
+// console.log("━".repeat(50));
 
-const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-console.log("Original:", nums);
+// const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+// console.log("Original:", nums);
 
-// Filter even numbers
-const evens = nums.filter(num => num % 2 === 0);
-console.log("\n1️⃣ Even numbers:", evens);
+// // Filter even numbers
+// const evens = nums.filter(num => num % 2 === 0);
+// console.log("\n1️⃣ Even numbers:", evens);
 
-// Filter numbers greater than 5
-const greaterThan5 = nums.filter(num => num > 5);
-console.log("2️⃣ Numbers > 5:", greaterThan5);
+// // Filter numbers greater than 5
+// const greaterThan5 = nums.filter(num => num > 5);
+// console.log("2️⃣ Numbers > 5:", greaterThan5);
 
-// Filter with objects
-const users = [
-    { name: "Alice", age: 25, active: true },
-    { name: "Bob", age: 17, active: false },
-    { name: "Charlie", age: 30, active: true },
-    { name: "David", age: 16, active: false }
-];
+// // Filter with objects
+// const users = [
+//     { name: "Alice", age: 25, active: true },
+//     { name: "Bob", age: 17, active: false },
+//     { name: "Charlie", age: 30, active: true },
+//     { name: "David", age: 16, active: false }
+// ];
 
-const adults = users.filter(user => user.age >= 18);
-console.log("3️⃣ Adults:", adults);
+// const adults = users.filter(user => user.age >= 18);
+// console.log("3️⃣ Adults:", adults);
 
-const activeUsers = users.filter(user => user.active);
-console.log("4️⃣ Active users:", activeUsers);
+// const activeUsers = users.filter(user => user.active);
+// console.log("4️⃣ Active users:", activeUsers);
 
-// Complex filtering
-const adultActiveUsers = users.filter(user => user.age >= 18 && user.active);
-console.log("5️⃣ Adult active users:", adultActiveUsers);
+// // Complex filtering
+// const adultActiveUsers = users.filter(user => user.age >= 18 && user.active);
+// console.log("5️⃣ Adult active users:", adultActiveUsers);
 
-// Filter falsy values
-const mixed = [0, 1, false, 2, "", 3, null, undefined, "hello"];
-const truthy = mixed.filter(Boolean);
-console.log("6️⃣ Remove falsy values:", truthy);
+// // Filter falsy values
+// const mixed = [0, 1, false, 2, "", 3, null, undefined, "hello"];
+// const truthy = mixed.filter(Boolean);
+// console.log("6️⃣ Remove falsy values:", truthy);
 
 /**
  * SECTION 5: reduce() - REDUCE TO SINGLE VALUE
@@ -173,7 +173,7 @@ const values = [1, 2, 3, 4, 5];
 console.log("Array:", values);
 
 // Sum all numbers
-const sum1 = values.reduce((acc, curr) => acc + curr, 0);
+const sum1 = values.reduce((acc, curr) => acc + curr, 0); // acc = accumulator, curr = current value, 0 is initial value
 console.log("\n1️⃣ Sum:", sum1);
 
 // Product of all numbers
@@ -181,15 +181,15 @@ const product = values.reduce((acc, curr) => acc * curr, 1);
 console.log("2️⃣ Product:", product);
 
 // Find maximum
-const max = values.reduce((acc, curr) => Math.max(acc, curr), -Infinity);
+const max = values.reduce((acc, curr) => Math.max(acc, curr), -Infinity); // Start with -Infinity to ensure any number will be larger
 console.log("3️⃣ Maximum:", max);
 
 // Count occurrences
-const fruits2 = ["apple", "banana", "apple", "orange", "banana", "apple"];
-const count = fruits2.reduce((acc, fruit) => {
-    acc[fruit] = (acc[fruit] || 0) + 1;
-    return acc;
-}, {});
+const fruits2 = ["apple", "banana", "apple", "orange", "banana", "apple"]; // Example array with duplicates
+const count = fruits2.reduce((acc, fruit) => { // acc is the object that will hold the counts
+    acc[fruit] = (acc[fruit] || 0) + 1; // If acc[fruit] exists, use it, otherwise start with 0, then add 1
+    return acc; // Return the accumulator for the next iteration
+}, {});  // Start with empty object to count occurrences 
 console.log("4️⃣ Count occurrences:", count);
 
 // Group by property
@@ -199,16 +199,16 @@ const people = [
     { name: "Charlie", age: 25, city: "NYC" },
     { name: "David", age: 30, city: "Chicago" }
 ];
-const byAge = people.reduce((acc, person) => {
-    if (!acc[person.age]) acc[person.age] = [];
-    acc[person.age].push(person);
-    return acc;
+const byAge = people.reduce((acc, person) => { // acc is the object that will hold the groups, person is the current element being processed
+    if (!acc[person.age]) acc[person.age] = []; // If there is no group for this age, create an empty array
+    acc[person.age].push(person); // Add the current person to the group for their age
+    return acc; // Return the accumulator for the next iteration
 }, {});
 console.log("5️⃣ Group by age:", byAge);
 
 // Flatten array
 const nested = [[1, 2], [3, 4], [5, 6]];
-const flat = nested.reduce((acc, curr) => acc.concat(curr), []);
+const flat = nested.reduce((acc, curr) => acc.concat(curr), []); // Start with empty array and concatenate each sub-array
 console.log("6️⃣ Flatten array:", flat);
 
 /**
@@ -227,22 +227,22 @@ console.log("Inventory:", inventory);
 
 // find() - returns first match
 console.log("\n1️⃣ find() - First match:");
-const laptop = inventory.find(item => item.name === "Laptop");
+const laptop = inventory.find(item => item.name === "Laptop"); // Find the first item with name "Laptop"
 console.log("  Found:", laptop);
 
-const inStock = inventory.find(item => item.inStock);
+const inStock = inventory.find(item => item.inStock); // Find the first item that is in stock (inStock: true)
 console.log("  First in stock:", inStock);
 
 // findIndex() - returns index
 console.log("\n2️⃣ findIndex() - Index of match:");
-const mouseIndex = inventory.findIndex(item => item.name === "Mouse");
+const mouseIndex = inventory.findIndex(item => item.name === "Mouse"); // Find the index of the first item with name "Mouse"
 console.log("  Mouse index:", mouseIndex);
 
-const notFound = inventory.find(item => item.name === "Phone");
+const notFound = inventory.find(item => item.name === "Phone"); // Try to find an item that doesn't exist (name "Phone"), will return undefined
 console.log("  Not found:", notFound); // undefined
 
 // find with complex condition
-const expensiveInStock = inventory.find(item => item.price > 100 && item.inStock);
+const expensiveInStock = inventory.find(item => item.price > 100 && item.inStock); // Find the first item that is expensive (price > 100) and in stock (inStock: true)
 console.log("  Expensive and in stock:", expensiveInStock);
 
 /**
@@ -256,18 +256,18 @@ console.log("Scores:", scores);
 
 // some() - at least one passes
 console.log("\n1️⃣ some() - At least one:");
-const hasPassing = scores.some(score => score >= 90);
+const hasPassing = scores.some(score => score >= 90); // Check if at least one score is greater than or equal to 90, will return true if any score meets the condition
 console.log("  Any score >= 90?", hasPassing);
 
-const hasPerfect = scores.some(score => score === 100);
+const hasPerfect = scores.some(score => score === 100); // Check if at least one score is exactly 100, will return true if any score is 100, otherwise false 
 console.log("  Any perfect score?", hasPerfect);
 
 // every() - all must pass
 console.log("\n2️⃣ every() - All must pass:");
-const allPassing = scores.every(score => score >= 60);
+const allPassing = scores.every(score => score >= 60); // Check if all scores are greater than or equal to 60, will return true if all scores meet the condition, otherwise false
 console.log("  All scores >= 60?", allPassing);
 
-const allExcellent = scores.every(score => score >= 90);
+const allExcellent = scores.every(score => score >= 90); // Check if all scores are greater than or equal to 90, will return true if all scores are >= 90, otherwise false
 console.log("  All scores >= 90?", allExcellent);
 
 // Practical examples
@@ -278,10 +278,10 @@ const shoppingCart = [
     { item: "USB Cable", price: 10, quantity: 3 }
 ];
 
-const hasExpensive = shoppingCart.some(item => item.price > 500);
+const hasExpensive = shoppingCart.some(item => item.price > 500); // Check if any item in the cart is expensive (price > 500), will return true if any item meets the condition, otherwise false
 console.log("  Cart has expensive item?", hasExpensive);
 
-const allInStock = shoppingCart.every(item => item.quantity > 0);
+const allInStock = shoppingCart.every(item => item.quantity > 0); // Check if all items in the cart are in stock (quantity > 0), will return true if all items are in stock, otherwise false
 console.log("  All items in stock?", allInStock);
 
 /**
@@ -305,12 +305,12 @@ console.log("  [...letters.entries()]:", [...letters.entries()]);
 
 // flatMap() - map then flatten
 const sentences = ["Hello world", "How are you"];
-const words = sentences.flatMap(sentence => sentence.split(" "));
+const words = sentences.flatMap(sentence => sentence.split(" ")); // flatMap will first map each sentence to an array of words (split by space), then flatten the resulting array of arrays into a single array of words
 console.log("\n4️⃣ flatMap() - Map and flatten:");
 console.log("  Result:", words);
 
 // Practical example - duplicate numbers
-const duplicates = [1, 2, 3].flatMap(x => [x, x]);
+const duplicates = [1, 2, 3].flatMap(x => [x, x]); // flatMap will take each number (1, 2, 3) and map it to an array containing the number twice ([1, 1], [2, 2], [3, 3]), then flatten the resulting array of arrays into a single array [1, 1, 2, 2, 3, 3]
 console.log("  Duplicate each number:", duplicates);
 
 /**
@@ -319,7 +319,7 @@ console.log("  Duplicate each number:", duplicates);
 console.log("\n📌 SECTION 9: Performance Comparison");
 console.log("━".repeat(50));
 
-const largeArray = Array.from({ length: 100000 }, (_, i) => i);
+const largeArray = Array.from({ length: 100000 }, (_, i) => i); // Create an array of 100,000 elements [0, 1, 2, ..., 99999]
 console.log("Testing with 100,000 elements...");
 
 console.log("\nMethod Performance (fastest to slowest):");
@@ -343,7 +343,7 @@ console.log("━".repeat(50));
 
 // Exercise 1: Transform array
 const temps = [32, 68, 75, 82, 95];
-const celsius = temps.map(f => ((f - 32) * 5) / 9);
+const celsius = temps.map(f => ((f - 32) * 5) / 9); // Convert each Fahrenheit temperature to Celsius using the formula (F - 32) * 5/9, will return a new array of Celsius temperatures
 console.log("Exercise 1 - Fahrenheit to Celsius:");
 console.log(`  ${temps}°F = ${celsius.map(c => c.toFixed(1))}°C`);
 
@@ -354,7 +354,7 @@ const products2 = [
     { name: "Laptop", price: 999, category: "Electronics" },
     { name: "Jeans", price: 59, category: "Clothing" }
 ];
-const electronics = products2.filter(p => p.category === "Electronics");
+const electronics = products2.filter(p => p.category === "Electronics"); // Filter products by category "Electronics", will return a new array containing only the electronic products
 console.log("\nExercise 2 - Electronics:", electronics);
 
 // Exercise 3: Calculate total
@@ -363,12 +363,12 @@ const cart2 = [
     { name: "Pen", price: 2, quantity: 5 },
     { name: "Notebook", price: 5, quantity: 3 }
 ];
-const total = cart2.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+const total = cart2.reduce((sum, item) => sum + (item.price * item.quantity), 0); // Calculate total price of items in cart by using reduce to sum up the price multiplied by quantity for each item, starting with an initial sum of 0
 console.log("\nExercise 3 - Cart total: $${total}");
 
 // Exercise 4: Check inventory
-const hasElectronics = products2.some(p => p.category === "Electronics");
-const allUnder100 = products2.every(p => p.price < 100);
+const hasElectronics = products2.some(p => p.category === "Electronics"); // Check if any product is in the "Electronics" category using some(), will return true if at least one product meets the condition, otherwise false
+const allUnder100 = products2.every(p => p.price < 100); // Check if all products are under $100 using every(), will return true if all products meet the condition, otherwise false
 console.log("\nExercise 4:");
 console.log(`  Has electronics? ${hasElectronics}`);
 console.log(`  All under $100? ${allUnder100}`);
