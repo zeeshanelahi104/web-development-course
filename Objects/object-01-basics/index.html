@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objects - Part 1: Basics & Creation</title>
+    <style>
+        body { font-family: cursive; padding: 20px; max-width: 1200px; margin: 0 auto; }
+        .note { background: #e7f3ff; padding: 10px; border-left: 4px solid #2196F3; margin: 10px 0; }
+        .warning { background: #fff3cd; padding: 10px; border-left: 4px solid #ffc107; margin: 10px 0; }
+        pre { background: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto; }
+    </style>
+    <script src="object-01-basics.js" defer></script>
+</head>
+<body>
+    <h1>📚 Objects in JavaScript - Part 1: Basics & Creation</h1>
+    
+    <h2>📌 What is an Object?</h2>
+    <p>An object is a collection of <b>key-value pairs</b> (properties) where each property has a name and a value.</p>
+    
+    <h2>📌 Topics Covered</h2>
+    <ul>
+        <li>What are objects and why use them</li>
+        <li>Different ways to create objects</li>
+        <li>Accessing and modifying properties</li>
+        <li>Adding and deleting properties</li>
+        <li>Object properties and methods</li>
+    </ul>
+    
+    <div class="note">
+        <strong>💡 Key Concept:</strong> Objects represent real-world entities with characteristics (properties) and behaviors (methods).
+    </div>
+    
+    <h2>📌 Creating Objects</h2>
+    <pre>
+// Object literal (preferred)
+const person = {
+    name: 'John',
+    age: 30,
+    city: 'New York'
+};
+
+// Constructor
+const car = new Object();
+car.brand = 'Toyota';
+
+// Object.create()
+const animal = Object.create(prototype);
+    </pre>
+    
+    <p>👉 Open Console to see examples</p>
+</body>
+</html>
