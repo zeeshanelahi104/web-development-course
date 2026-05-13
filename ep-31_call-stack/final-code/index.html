@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Call Stack</title>
+
+    <script src="callstack.js" defer></script>
+  </head>
+
+  <body style="font-family: cursive; padding: 20px">
+    <h1>Call Stack in JavaScript</h1>
+
+    <h2>📌 What is Call Stack?</h2>
+    <p>
+      Call Stack is a data structure used by JavaScript to keep track of function execution.
+      It follows <b>LIFO (Last In, First Out)</b>.
+    </p>
+
+    <h2>📌 How it Works</h2>
+    <ol>
+      <li>Global Execution Context is pushed first</li>
+      <li>When a function is called → pushed into stack</li>
+      <li>When function finishes → popped out</li>
+    </ol>
+
+    <h2>📌 Visualization</h2>
+    <pre>
+Global()
+  ↓
+first()
+  ↓
+second()
+  ↓
+third()
+  ↑
+second()
+  ↑
+first()
+  ↑
+Global()
+    </pre>
+
+    <h2>📌 Key Points</h2>
+    <ul>
+      <li>Single-threaded → only one task at a time</li>
+      <li>Stack overflow happens when too many calls</li>
+      <li>Works synchronously</li>
+    </ul>
+
+    <h2>📌 How to See Output?</h2>
+    <p>👉 Open Console (Inspect → Console)</p>
+  </body>
+</html>

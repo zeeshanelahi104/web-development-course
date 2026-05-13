@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lexical Scope and Block Scope</title>
+
+    <script src="lexical-block-scope.js" defer></script>
+  </head>
+
+  <body style="font-family: cursive; padding: 20px">
+    <h1>Lexical Scope and Block Scope</h1>
+
+    <h2>📌 What is Lexical Scope?</h2>
+    <p>
+      Lexical scope (also called static scope) means that a function's scope is determined by 
+      <b>where it is written in the code</b>, not where it is called. Inner functions have access 
+      to variables from their outer/parent functions.
+    </p>
+
+    <h2>📌 What is Block Scope?</h2>
+    <p>
+      Block scope is created whenever you use curly braces <b>{ }</b> (if statements, loops, etc.).
+      Variables declared with <b>let</b> and <b>const</b> are block-scoped, meaning they are only 
+      accessible within that specific block.
+    </p>
+
+    <h2>📌 Key Differences</h2>
+    <ul>
+      <li><b>var</b> → NOT block-scoped (ignores if/for blocks)</li>
+      <li><b>let & const</b> → block-scoped (only accessible inside {})</li>
+      <li><b>Lexical Scope</b> → Inner functions can access outer function variables</li>
+    </ul>
+
+    <h2>📌 Lexical Scope Chain Example</h2>
+    <pre>
+function outer() {
+  const outerVar = "outer";
+  
+  function inner() {
+    const innerVar = "inner";
+    console.log(outerVar);  // ✅ Can access outer variable
+  }
+  
+  inner();
+}
+// Lexical scope: inner() can see outer()'s variables
+    </pre>
+
+    <h2>📌 Block Scope Example</h2>
+    <pre>
+if(true) {
+  let blockScoped = "only in block";
+  var functionScoped = "leaks out";
+}
+console.log(blockScoped);  // ❌ Error!
+console.log(functionScoped); // ✅ Works (var leaks)
+    </pre>
+
+    <h2>📌 How to See Output?</h2>
+    <p>👉 Open Console (Inspect → Console)</p>
+  </body>
+</html>

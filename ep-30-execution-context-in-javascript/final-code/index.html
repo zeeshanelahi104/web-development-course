@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Execution Context in JavaScript</title>
+
+    <!-- External JS -->
+    <script src="script.js" defer></script>
+  </head>
+
+  <body style="font-family: cursive; padding: 20px">
+    <h1>Execution Context in JavaScript</h1>
+
+    <h2>📌 How JavaScript Works Internally</h2>
+    <p>
+      JavaScript is a <b>single-threaded, synchronous</b> language. It executes code line by line using:
+    </p>
+    <ul>
+      <li><b>Call Stack</b> → Manages execution contexts</li>
+      <li><b>Memory Heap</b> → Stores variables and objects</li>
+    </ul>
+
+    <h3>👉 Execution Flow:</h3>
+    <ol>
+      <li>Global Execution Context (GEC) is created</li>
+      <li>Creation Phase runs (memory allocation)</li>
+      <li>Execution Phase runs (code executes line by line)</li>
+      <li>When a function is called → new Execution Context is created</li>
+      <li>Contexts are pushed/popped from Call Stack</li>
+    </ol>
+
+    <h2>📌 Execution Context Phases</h2>
+
+    <h3>1. Creation Phase</h3>
+    <ul>
+      <li>Variables → <b>undefined</b></li>
+      <li>Functions → fully hoisted</li>
+      <li>Scope & this → determined</li>
+    </ul>
+
+    <h3>2. Execution Phase</h3>
+    <ul>
+      <li>Code runs line by line</li>
+      <li>Variables get actual values</li>
+      <li>Functions are executed</li>
+    </ul>
+
+    <h2>📌 Code Execution Sequence (IMPORTANT)</h2>
+
+    <ol>
+      <li>Global Execution Context created</li>
+      <li>All variables hoisted → undefined</li>
+      <li>Functions stored in memory</li>
+      <li>Execution starts line by line</li>
+      <li>Function call → pushed to Call Stack</li>
+      <li>Inner function → new context created</li>
+      <li>Function finishes → popped from stack</li>
+    </ol>
+
+    <h2>📌 Call Stack Visualization</h2>
+    <pre>
+Global()
+  ↓
+greet()
+  ↓
+inner()
+  ↑
+greet()
+  ↑
+Global()
+    </pre>
+
+    <h2>📌 Scope Chain</h2>
+    <p>
+      JavaScript first looks for variables in current scope, then moves to parent scope, and finally global scope.
+    </p>
+
+    <h2>📌 How to See Output?</h2>
+    <p>👉 Right click → Inspect → Console</p>
+  </body>
+</html>

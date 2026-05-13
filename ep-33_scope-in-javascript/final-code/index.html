@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scope in JavaScript</title>
+
+    <script src="scope.js" defer></script>
+  </head>
+
+  <body style="font-family: cursive; padding: 20px">
+    <h1>Scope in JavaScript</h1>
+
+    <h2>📌 What is Scope?</h2>
+    <p>
+      Scope determines the accessibility/visibility of variables in different parts of your code.
+      It defines where variables and functions can be accessed.
+    </p>
+
+    <h2>📌 Types of Scope</h2>
+    <ul>
+      <li><b>Global Scope</b> → Variables declared outside any function (accessible everywhere)</li>
+      <li><b>Function Scope</b> → Variables declared inside a function (accessible only within that function)</li>
+      <li><b>Block Scope</b> → Variables declared with let/const inside {} (accessible only within that block)</li>
+    </ul>
+
+    <h2>📌 Variable Declaration & Scope</h2>
+    <ul>
+      <li><b>var</b> → Function-scoped (ignores block scopes like if, for)</li>
+      <li><b>let & const</b> → Block-scoped (respects {} blocks)</li>
+    </ul>
+
+    <h2>📌 Scope Chain</h2>
+    <p>
+      When a variable is used, JavaScript looks for it in the current scope.
+      If not found, it looks in outer/parent scopes (up the chain) until reaching global scope.
+    </p>
+
+    <h2>📌 Example Flow</h2>
+    <pre>
+const username = 'Anurag'  // Global scope
+
+function add() {
+  const username = 'Akash'  // Local scope (shadows global)
+  console.log(username)      // 'Akash' - uses local
+}
+
+console.log(username)        // 'Anurag' - uses global
+    </pre>
+
+    <h2>📌 How to See Output?</h2>
+    <p>👉 Open Console (Inspect → Console)</p>
+  </body>
+</html>

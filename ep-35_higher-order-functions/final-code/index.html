@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Higher Order Functions</title>
+
+    <script src="higher-order-functions.js" defer></script>
+</head>
+
+<body style="font-family: cursive; padding: 20px;">
+    <h1>Higher Order Functions in JavaScript</h1>
+
+    <h2>📌 What are Higher Order Functions?</h2>
+    <p>
+        A <b>Higher Order Function</b> is a function that does at least one of the following:
+    </p>
+    <ul>
+        <li>Takes one or more functions as arguments (<b>callbacks</b>)</li>
+        <li>Returns a function as its result</li>
+    </ul>
+
+    <h2>📌 What are Callback Functions?</h2>
+    <p>
+        A <b>Callback Function</b> is a function that is passed as an argument to another function 
+        and is executed inside that function.
+    </p>
+
+    <h2>📌 Why Use Higher Order Functions?</h2>
+    <ul>
+        <li>Code reusability and modularity</li>
+        <li>Abstraction (hide complex implementation)</li>
+        <li>Functional programming paradigm</li>
+        <li>Async operations (event handlers, setTimeout, API calls)</li>
+    </ul>
+
+    <h2>📌 Built-in Higher Order Functions</h2>
+    <ul>
+        <li><b>map()</b> → transforms each array element</li>
+        <li><b>filter()</b> → filters array based on condition</li>
+        <li><b>reduce()</b> → reduces array to single value</li>
+        <li><b>forEach()</b> → executes function for each element</li>
+        <li><b>setTimeout()</b> → executes after delay</li>
+        <li><b>addEventListener()</b> → handles events</li>
+    </ul>
+
+    <h2>📌 Example Flow</h2>
+    <pre>
+// Higher Order Function
+function operate(num, callback) {
+  return callback(num);
+}
+
+// Callback Function
+function double(x) {
+  return x * 2;
+}
+
+operate(5, double);  // Returns 10
+    </pre>
+
+    <h2>📌 How to See Output?</h2>
+    <p>👉 Open Console (Inspect → Console)</p>
+</body>
+</html>

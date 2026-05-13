@@ -1,6 +1,6 @@
 console.log("===== OBJECTS - PART 3: ADVANCED FEATURES =====");
 console.log("");
-
+debugger;
 /**
  * SECTION 1: GETTERS AND SETTERS
  */
@@ -114,7 +114,7 @@ console.log("User object:", user);
 
 // Get property descriptor
 console.log("\n1️⃣ Get Descriptor:");
-const descriptor = Object.getOwnPropertyDescriptor(user, "name");
+const descriptor = Object.getOwnPropertyDescriptor(user, "name"); // { value: 'Alice', writable: true, enumerable: true, configurable: true } explains the default attributes of the 'name' property what is meant by value, writable, enumerable, and configurable. writable: true means the value can be changed, enumerable: true means it will show up in loops and Object.keys(), configurable: true means the property can be deleted or reconfigured.
 console.log("  Descriptor for 'name':", descriptor);
 
 // Define property with descriptor

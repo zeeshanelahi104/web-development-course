@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functions - Part 1: Basics & Types</title>
+    <style>
+        body { font-family: cursive; padding: 20px; max-width: 1200px; margin: 0 auto; }
+        .note { background: #e7f3ff; padding: 10px; border-left: 4px solid #2196F3; margin: 10px 0; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #2196F3; color: white; }
+    </style>
+    <script src="function-01-basics.js" defer></script>
+</head>
+<body>
+    <h1>📚 Functions in JavaScript - Part 1: Basics & Types</h1>
+    
+    <h2>📌 What is a Function?</h2>
+    <p>A function is a <b>reusable block of code</b> that performs a specific task.</p>
+    
+    <h2>📌 Topics Covered</h2>
+    <ul>
+        <li>Function declarations vs expressions</li>
+        <li>Arrow functions</li>
+        <li>Parameters and arguments</li>
+        <li>Return values</li>
+        <li>Default parameters</li>
+        <li>Rest parameters</li>
+    </ul>
+    
+    <table>
+        <tr>
+            <th>Function Type</th>
+            <th>Syntax</th>
+            <th>Hoisting</th>
+            <th>this binding</th>
+        </tr>
+        <tr><td>Declaration</td><td>function name() {}</td><td>✅ Yes</td><td>Dynamic</td></tr>
+        <tr><td>Expression</td><td>const f = function() {}</td><td>❌ No</td><td>Dynamic</td></tr>
+        <tr><td>Arrow</td><td>() => {}</td><td>❌ No</td><td>Lexical</td></tr>
+    </table>
+    
+    <p>👉 Open Console to see examples</p>
+</body>
+</html>
