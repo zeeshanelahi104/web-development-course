@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Code Execution Sequence - DOM CRUD App</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      /* Header */
+      .header {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 30px;
+        text-align: center;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .header h1 {
+        color: #667eea;
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+      }
+
+      /* Execution Flow */
+      .execution-flow {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .phase {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s;
+      }
+
+      .phase:hover {
+        transform: translateY(-5px);
+      }
+
+      .phase-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 15px 25px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .phase-number {
+        background: rgba(255, 255, 255, 0.3);
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+
+      .phase-content {
+        padding: 25px;
+        display: none;
+      }
+
+      .phase.active .phase-content {
+        display: block;
+      }
+
+      /* Code Blocks */
+      .code-block {
+        background: #2d3748;
+        color: #68d391;
+        padding: 15px;
+        border-radius: 10px;
+        font-family: "Courier New", monospace;
+        font-size: 13px;
+        overflow-x: auto;
+        margin: 15px 0;
+      }
+
+      .explanation {
+        background: #f0f4ff;
+        padding: 15px;
+        border-radius: 10px;
+        margin: 15px 0;
+        border-left: 4px solid #667eea;
+      }
+
+      .call-stack-demo {
+        background: #1a1a2e;
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 15px 0;
+      }
+
+      .stack-frame {
+        background: #667eea;
+        padding: 10px;
+        margin: 5px;
+        border-radius: 8px;
+        text-align: center;
+        animation: slideIn 0.3s ease;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 5px;
+        font-weight: bold;
+      }
+
+      .btn-primary {
+        background: #667eea;
+        color: white;
+      }
+
+      .btn-success {
+        background: #4caf50;
+        color: white;
+      }
+
+      .btn-danger {
+        background: #f44336;
+        color: white;
+      }
+
+      .btn-warning {
+        background: #ff9800;
+        color: white;
+      }
+
+      .timeline {
+        position: relative;
+        padding-left: 30px;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 10px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: #667eea;
+      }
+
+      .timeline-item {
+        position: relative;
+        padding: 15px;
+        margin: 15px 0;
+        background: #f8f9fa;
+        border-radius: 10px;
+      }
+
+      .timeline-item::before {
+        content: "●";
+        position: absolute;
+        left: -24px;
+        top: 15px;
+        color: #667eea;
+        font-size: 16px;
+      }
+
+      .console-sim {
+        background: #1e1e1e;
+        color: #d4d4d4;
+        padding: 15px;
+        border-radius: 10px;
+        font-family: monospace;
+        max-height: 300px;
+        overflow-y: auto;
+      }
+
+      .console-line {
+        padding: 5px;
+        border-left: 3px solid #4caf50;
+        margin: 3px 0;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>📋 DOM-CRUD App: Code Execution Sequence</h1>
+        <p>Understanding how JavaScript runs your code - Step by Step</p>
+        <div>
+          <button class="btn btn-primary" onclick="runFullSequence()">
+            ▶️ Run Full Sequence
+          </button>
+          <button class="btn btn-success" onclick="resetSequence()">
+            🔄 Reset
+          </button>
+          <button class="btn btn-warning" onclick="toggleAllPhases()">
+            📂 Expand All
+          </button>
+        </div>
+      </div>
+
+      <div class="execution-flow" id="executionFlow">
+        <!-- PHASE 1: HTML Parsing -->
+        <div class="phase" id="phase1">
+          <div class="phase-header" onclick="togglePhase(1)">
+            <span>🌐 PHASE 1: HTML Parsing & DOM Construction</span>
+            <span class="phase-number">1</span>
+          </div>
+          <div class="phase-content">
+            <div class="explanation">
+              <strong>📖 What happens:</strong> Browser reads HTML file line by
+              line and builds the DOM tree.
+            </div>
+            <div class="code-block">
+              <pre>
+1. Browser downloads index.html
+2. Browser starts parsing from top to bottom
+3. Creates DOM elements: header, form-section, table-section
+4. Encounters &lt;link rel="stylesheet" href="style.css"&gt;
+   → Downloads and applies CSS
+5. Encounters &lt;script src="script.js"&gt;
+   → Pauses HTML parsing, downloads script.js</pre
+              >
+            </div>
+            <div class="call-stack-demo" id="phase1Demo">
+              <strong>🔍 Browser Console Output:</strong>
+              <div id="phase1Console" class="console-sim">
+                <div class="console-line">📄 Parsing index.html...</div>
+                <div class="console-line">🎨 Applying CSS styles...</div>
+                <div class="console-line">⏸️ Paused at script tag...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHASE 2: Script Loading & Hoisting -->
+        <div class="phase" id="phase2">
+          <div class="phase-header" onclick="togglePhase(2)">
+            <span>📦 PHASE 2: Script Loading & Hoisting</span>
+            <span class="phase-number">2</span>
+          </div>
+          <div class="phase-content">
+            <div class="explanation">
+              <strong>📖 What happens:</strong> JavaScript engine loads
+              script.js and performs hoisting (memory allocation).
+            </div>
+            <div class="code-block">
+              <pre>
+// JavaScript engine scans script.js (Creation Phase)
+
+// STEP 1: Allocates memory for variables
+let students = [];           // Hoisted (but in TDZ)
+let currentEditId = null;    // Hoisted (but in TDZ)
+
+// STEP 2: Stores function declarations in memory
+function loadFromLocalStorage() { ... }
+function saveToLocalStorage() { ... }
+function addStudent() { ... }
+function updateStudent() { ... }
+function deleteStudent() { ... }
+function renderTable() { ... }
+function init() { ... }
+
+// STEP 3: DOM element references (const - hoisted, but not initialized)
+const studentForm = document.getElementById('studentForm');
+const studentTableBody = document.getElementById('studentTableBody');</pre
+              >
+            </div>
+            <div class="call-stack-demo">
+              <strong>📚 Call Stack after Hoisting:</strong>
+              <div id="phase2Stack">
+                <div class="stack-frame">
+                  🌍 Global Execution Context (Created)
+                </div>
+                <div class="stack-frame">
+                  📦 Variables: students[], currentEditId (allocated)
+                </div>
+                <div class="stack-frame">
+                  📦 Functions: loadFromLocalStorage, addStudent, etc. (stored)
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHASE 3: Global Execution -->
+        <div class="phase" id="phase3">
+          <div class="phase-header" onclick="togglePhase(3)">
+            <span>⚙️ PHASE 3: Global Execution Context</span>
+            <span class="phase-number">3</span>
+          </div>
+          <div class="phase-content">
+            <div class="explanation">
+              <strong>📖 What happens:</strong> JavaScript executes code line by
+              line from top to bottom.
+            </div>
+            <div class="code-block">
+              <pre>
+// Line 1-100: Variable assignments and DOM queries
+const studentForm = document.getElementById('studentForm');  // Gets DOM element
+const studentTableBody = document.getElementById('studentTableBody');
+
+// Line 150: Event listener registration
+studentForm.addEventListener('submit', handleSubmit);
+saveBtn.addEventListener('click', handleSubmit);
+resetBtn.addEventListener('click', () => { resetForm(); });
+
+// Line 200: Function call
+init();  // ← Execution jumps to init() function
+
+// Inside init():
+function init() {
+    loadFromLocalStorage();  // ← Another function call
+    console.log('Application initialized!');
+}</pre
+              >
+            </div>
+            <div class="call-stack-demo" id="phase3Demo">
+              <strong>📚 Call Stack Execution:</strong>
+              <div id="phase3Stack">
+                <div class="stack-frame" style="background: #4caf50">
+                  ✅ Global Execution Context (Running)
+                </div>
+              </div>
+              <button
+                class="btn btn-primary"
+                onclick="simulateInitCall()"
+                style="margin-top: 10px"
+              >
+                ▶️ Simulate init() call
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHASE 4: LocalStorage Load -->
+        <div class="phase" id="phase4">
+          <div class="phase-header" onclick="togglePhase(4)">
+            <span>💾 PHASE 4: LocalStorage Data Load</span>
+            <span class="phase-number">4</span>
+          </div>
+          <div class="phase-content">
+            <div class="explanation">
+              <strong>📖 What happens:</strong> loadFromLocalStorage() reads
+              data from browser storage.
+            </div>
+            <div class="code-block">
+              <pre>
+function loadFromLocalStorage() {
+    // 1. Read from localStorage
+    const storedStudents = localStorage.getItem('students');
+    
+    // 2. Parse JSON to JavaScript array
+    if (storedStudents) {
+        students = JSON.parse(storedStudents);
+    } else {
+        students = [];  // Empty array if no data
+    }
+    
+    // 3. Update UI
+    renderTable();      // ← Another function call
+    updateStats();      // ← Another function call
+}</pre
+              >
+            </div>
+            <div class="explanation">
+              <strong>💡 Key Point:</strong> LocalStorage is synchronous! The
+              code waits for data to load.
+            </div>
+          </div>
+        </div>
+
+        <!-- PHASE 5: Render Table -->
+        <div class="phase" id="phase5">
+          <div class="phase-header" onclick="togglePhase(5)">
+            <span>📊 PHASE 5: Table Rendering</span>
+            <span class="phase-number">5</span>
+          </div>
+          <div class="phase-content">
+            <div class="explanation">
+              <strong>📖 What happens:</strong> renderTable() uses innerHTML to
+              display student data.
+            </div>
+            <div class="code-block">
+              <pre>
+function renderTable() {
+    // 1. Clear existing content
+    studentTableBody.innerHTML = '';
+    
+    // 2. Loop through students array
+    students.forEach((student, index) => {
+        // 3. Create HTML string
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            &lt;td&gt;${student.id}&lt;/td&gt;
+            &lt;td&gt;${student.fullName}&lt;/td&gt;
+            &lt;td&gt;${student.age}&lt;/td&gt;
+            &lt;td&gt;${student.email}&lt;/td&gt;
+            &lt;td&gt;${student.course}&lt;/td&gt;
+            &lt;td&gt;
+                &lt;button onclick="editStudent(${student.id})"&gt;Edit&lt;/button&gt;
+                &lt;button onclick="deleteStudent(${student.id})"&gt;Delete&lt;/button&gt;
+            &lt;/td&gt;
+        `;
+        // 4. Append to DOM
+        studentTableBody.appendChild(row);
+    });
+}</pre
+              >
+            </div>
+            <div class="call-stack-demo" id="phase5Demo">
+              <strong>📚 Call Stack during renderTable():</strong>
+              <div id="phase5Stack">
+                <div class="stack-frame" style="background: #ff9800">
+                  🔄 renderTable()
+                </div>
+                <div class="stack-frame" style="background: #667eea">
+                  forEach() loop
+                </div>
+                <div class="stack-frame" style="background: #667eea">
+                  createElement()
+                </div>
+                <div class="stack-frame" style="background: #667eea">
+                  innerHTML assignment
+                </div>
+                <div class="stack-frame" style="background: #4caf50">
+                  Global Context
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHASE 6: Event Listeners Waiting -->
+        <div class="phase" id="phase6">
+          <div class="phase-header" onclick="togglePhase(6)">
+            <span>👂 PHASE 6: Event Listeners Waiting</span>
+            <span class="phase-number">6</span>
+          </div>
+          <div class="phase-content">
+            <div class="explanation">
+              <strong>📖 What happens:</strong> JavaScript waits for user
+              interactions (Event Loop).
+            </div>
+            <div class="code-block">
+              <pre>
+// Event listeners registered during Phase 3
+saveBtn.addEventListener('click', handleSubmit);
+updateBtn.addEventListener('click', handleSubmit);
+deleteAllBtn.addEventListener('click', deleteAllStudents);
+searchInput.addEventListener('input', handleSearch);
+
+// The Event Loop continuously checks for:
+// 1. User clicks
+// 2. Keyboard events
+// 3. Timer callbacks
+// 4. API responses</pre
+              >
+            </div>
+            <div class="call-stack-demo">
+              <strong>🔄 Event Loop State:</strong>
+              <div id="phase6State">
+                <div class="stack-frame" style="background: #4caf50">
+                  🌍 Global Execution Context (Idle)
+                </div>
+                <div class="stack-frame" style="background: #ff9800">
+                  👂 Waiting for events...
+                </div>
+              </div>
+              <div class="explanation" style="margin-top: 10px">
+                <strong>🎯 The Event Loop:</strong> Like a waiter at a
+                restaurant - constantly checking if something needs attention!
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHASE 7: User Action - Add Student -->
+        <div class="phase" id="phase7">
+          <div class="phase-header" onclick="togglePhase(7)">
+            <span>✏️ PHASE 7: User Action - Add Student</span>
+            <span class="phase-number">7</span>
+          </div>
+          <div class="phase-content">
+            <div class="explanation">
+              <strong>📖 What happens:</strong> User fills form and clicks "Save
+              Student" button.
+            </div>
+            <div class="code-block">
+              <pre>
+// 1. Click event fires
+// 2. Event loop picks up the callback
+// 3. handleSubmit() is called
+
+function handleSubmit(event) {
+    event.preventDefault();  // Stop page reload
+    
+    const formData = {
+        fullName: fullName.value,
+        age: age.value,
+        email: email.value,
+        course: course.value
+    };
+    
+    if (currentEditId) {
+        updateStudent(currentEditId, formData);
+    } else {
+        addStudent(formData);  // ← New student added
+    }
+}</pre
+              >
+            </div>
+            <div class="call-stack-demo" id="phase7Demo">
+              <strong>📚 Call Stack during Add Student:</strong>
+              <button class="btn btn-primary" onclick="simulateAddStudent()">
+                ▶️ Simulate Add Student
+              </button>
+              <div id="phase7Stack"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHASE 8: Save to LocalStorage -->
+        <div class="phase" id="phase8">
+          <div class="phase-header" onclick="togglePhase(8)">
+            <span>💾 PHASE 8: Save to LocalStorage</span>
+            <span class="phase-number">8</span>
+          </div>
+          <div class="phase-content">
+            <div class="explanation">
+              <strong>📖 What happens:</strong> Data is saved to browser
+              storage.
+            </div>
+            <div class="code-block">
+              <pre>
+function saveToLocalStorage() {
+    // Convert JavaScript array to JSON string
+    const jsonData = JSON.stringify(students);
+    
+    // Save to localStorage
+    localStorage.setItem('students', jsonData);
+    
+    console.log('Data saved!', students.length, 'students');
+}</pre
+              >
+            </div>
+            <div class="explanation">
+              <strong>💡 Key Point:</strong> localStorage.setItem() is
+              synchronous - code waits for it to complete!
+            </div>
+          </div>
+        </div>
+
+        <!-- PHASE 9: Re-render Table -->
+        <div class="phase" id="phase9">
+          <div class="phase-header" onclick="togglePhase(9)">
+            <span>🔄 PHASE 9: Re-render Table</span>
+            <span class="phase-number">9</span>
+          </div>
+          <div class="phase-content">
+            <div class="explanation">
+              <strong>📖 What happens:</strong> Table updates to show new data.
+            </div>
+            <div class="code-block">
+              <pre>
+function renderTable() {
+    // Clear and re-render with updated data
+    studentTableBody.innerHTML = '';
+    
+    students.forEach(student => {
+        // Create new row with updated data
+        const row = document.createElement('tr');
+        row.innerHTML = `...`;
+        studentTableBody.appendChild(row);
+    });
+}</pre
+              >
+            </div>
+            <div class="explanation">
+              <strong>🎨 DOM Update:</strong> Browser repaints the screen to
+              show changes!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Complete Sequence Summary -->
+      <div class="phase" style="margin-top: 20px">
+        <div
+          class="phase-header"
+          style="background: linear-gradient(135deg, #4caf50 0%, #45a049 100%)"
+        >
+          <span>📝 COMPLETE EXECUTION SUMMARY</span>
+          <span class="phase-number">✓</span>
+        </div>
+        <div class="phase-content" style="display: block">
+          <div class="timeline">
+            <div class="timeline-item">
+              <strong>1️⃣ HTML Parsing</strong> - Browser builds DOM tree from
+              index.html
+            </div>
+            <div class="timeline-item">
+              <strong>2️⃣ CSS Loading</strong> - Styles are downloaded and
+              applied
+            </div>
+            <div class="timeline-item">
+              <strong>3️⃣ Script Loading</strong> - script.js is downloaded
+            </div>
+            <div class="timeline-item">
+              <strong>4️⃣ Hoisting (Creation Phase)</strong> - Variables and
+              functions are stored in memory
+            </div>
+            <div class="timeline-item">
+              <strong>5️⃣ Global Execution</strong> - Code runs top to bottom,
+              registers event listeners
+            </div>
+            <div class="timeline-item">
+              <strong>6️⃣ LocalStorage Load</strong> - Previous data is loaded
+            </div>
+            <div class="timeline-item">
+              <strong>7️⃣ Initial Render</strong> - Table displays existing data
+            </div>
+            <div class="timeline-item">
+              <strong>8️⃣ Event Loop Idle</strong> - Waiting for user interaction
+            </div>
+            <div class="timeline-item">
+              <strong>9️⃣ User Action</strong> - Button click triggers callback
+            </div>
+            <div class="timeline-item">
+              <strong>🔟 CRUD Operation</strong> - Add/Update/Delete data
+            </div>
+            <div class="timeline-item">
+              <strong>1️⃣1️⃣ Save to Storage</strong> - localStorage is updated
+            </div>
+            <div class="timeline-item">
+              <strong>1️⃣2️⃣ Re-render</strong> - Table updates to show changes
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Toggle phase visibility
+      function togglePhase(phaseNumber) {
+        const phase = document.getElementById(`phase${phaseNumber}`);
+        phase.classList.toggle("active");
+      }
+
+      function toggleAllPhases() {
+        for (let i = 1; i <= 9; i++) {
+          const phase = document.getElementById(`phase${i}`);
+          phase.classList.add("active");
+        }
+      }
+
+      function resetSequence() {
+        for (let i = 1; i <= 9; i++) {
+          const phase = document.getElementById(`phase${i}`);
+          phase.classList.remove("active");
+        }
+        addConsoleMessage(
+          "🔄 Sequence reset! Click on phases to explore each step.",
+          "info",
+        );
+      }
+
+      function runFullSequence() {
+        addConsoleMessage("▶️ Running full execution sequence...", "success");
+
+        let delay = 0;
+        for (let i = 1; i <= 9; i++) {
+          setTimeout(() => {
+            const phase = document.getElementById(`phase${i}`);
+            phase.classList.add("active");
+            phase.scrollIntoView({ behavior: "smooth", block: "center" });
+            addConsoleMessage(`📖 Phase ${i} completed`, "info");
+          }, delay);
+          delay += 1500;
+        }
+
+        setTimeout(() => {
+          addConsoleMessage(
+            "✅ Full sequence complete! Ready for user interaction.",
+            "success",
+          );
+        }, delay);
+      }
+
+      function simulateInitCall() {
+        const stackDiv = document.getElementById("phase3Stack");
+        stackDiv.innerHTML = `
+                <div class="stack-frame" style="background: #ff9800;">📞 init() called</div>
+                <div class="stack-frame" style="background: #ff9800;">  📞 loadFromLocalStorage()</div>
+                <div class="stack-frame" style="background: #ff9800;">    📞 renderTable()</div>
+                <div class="stack-frame" style="background: #ff9800;">      📞 forEach() loop</div>
+                <div class="stack-frame" style="background: #4caf50;">🌍 Global Context</div>
+            `;
+
+        setTimeout(() => {
+          stackDiv.innerHTML = `
+                    <div class="stack-frame" style="background: #4caf50;">✅ Global Execution Context (Complete)</div>
+                `;
+        }, 3000);
+      }
+
+      function simulateAddStudent() {
+        const stackDiv = document.getElementById("phase7Stack");
+        stackDiv.innerHTML = `
+                <div class="stack-frame" style="background: #ff9800;">🖱️ Click Event (Callback)</div>
+                <div class="stack-frame" style="background: #ff9800;">  📝 handleSubmit()</div>
+                <div class="stack-frame" style="background: #ff9800;">    ➕ addStudent()</div>
+                <div class="stack-frame" style="background: #ff9800;">      💾 saveToLocalStorage()</div>
+                <div class="stack-frame" style="background: #ff9800;">        🔄 renderTable()</div>
+                <div class="stack-frame" style="background: #4caf50;">🌍 Global Context</div>
+            `;
+
+        addConsoleMessage("➕ Adding new student...", "success");
+
+        setTimeout(() => {
+          stackDiv.innerHTML = `
+                    <div class="stack-frame" style="background: #4caf50;">✅ Student added successfully!</div>
+                    <div class="stack-frame" style="background: #4caf50;">🌍 Global Context</div>
+                `;
+          addConsoleMessage("✅ Student saved to LocalStorage!", "success");
+        }, 3000);
+      }
+
+      function addConsoleMessage(message, type) {
+        // Just for demo - actual console in browser
+        console.log(message);
+      }
+
+      // Initialize with Phase 1 open
+      document.getElementById("phase1").classList.add("active");
+    </script>
+  </body>
+</html>
