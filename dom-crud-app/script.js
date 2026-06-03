@@ -34,7 +34,7 @@ const gender = document.getElementById('gender');
 const email = document.getElementById('email');
 const course = document.getElementById('course');
 const address = document.getElementById('address');
-const phone = document.getElementById('phone');
+const phone = document.getElementById('phone'); 
 
 // Stats elements
 const totalStudentsSpan = document.getElementById('totalStudents');
