@@ -17,7 +17,7 @@ const createUser = async (request, response) => {
 // READ all users
 const getUsers = async (request, response) => {
   try {
-    const users = await User.find().sort({ createdAt: -1 });
+    const users = await User.find().sort({ createdAt: -1 }); // sort by newest first
     return response.status(200).json(users);
   } catch (error) {
     return response.status(500).json({ message: error.message });
@@ -55,7 +55,7 @@ const updateUser = async (request, response) => {
     }
 
     const user = await User.findByIdAndUpdate(id, request.body, {
-      new: true,
+      new: true, // return the updated document
       runValidators: true,
     });
 

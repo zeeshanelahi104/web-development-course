@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Manager</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>User Manager</h1>
+      <p class="subtitle">Frontend for the Express + MongoDB CRUD API</p>
+    </header>
+
+    <section class="card form-card">
+      <h2 id="form-title">Add User</h2>
+      <form id="user-form">
+        <input type="hidden" id="user-id" />
+
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" placeholder="Jane Doe" required />
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="jane@example.com" required />
+        </div>
+
+        <div class="field">
+          <label for="age">Age</label>
+          <input type="number" id="age" placeholder="25" min="0" />
+        </div>
+
+        <div class="actions">
+          <button type="submit" id="submit-btn" class="btn primary">Add User</button>
+          <button type="button" id="cancel-btn" class="btn ghost hidden">Cancel</button>
+        </div>
+      </form>
+      <p id="message" class="message"></p>
+    </section>
+
+    <section class="card list-card">
+      <div class="list-head">
+        <h2>Users</h2>
+        <button id="refresh-btn" class="btn ghost">Refresh</button>
+      </div>
+      <div id="users" class="users"></div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

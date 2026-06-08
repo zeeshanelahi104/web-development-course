@@ -12,6 +12,7 @@ router.post('/', createUser);
 router.get('/', getUsers);
 router.get('/:id', getUserById);
 router.put('/:id', updateUser);
+// router.patch('/:id', updateUser); // if you want to allow partial updates (only some fields), use PATCH instead of PUT
 router.delete('/:id', deleteUser);
 
 module.exports = router;

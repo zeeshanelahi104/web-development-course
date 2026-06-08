@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'); // Mongoose is an ODM (Object Data Modeling) library for MongoDB and Node.js
 
 const connectDB = async () => {
   try {
